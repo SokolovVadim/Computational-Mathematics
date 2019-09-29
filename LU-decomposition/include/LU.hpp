@@ -27,6 +27,5 @@ namespace LU{
 		double **      matrix_;
 	};
 
-	void ComputeU(Matrix & A, Matrix & L, Matrix & U);
-	void ComputeL(Matrix & A, Matrix & L, Matrix & U);
+	void ComputeLU(Matrix & A, Matrix & L, Matrix & U);	
 };

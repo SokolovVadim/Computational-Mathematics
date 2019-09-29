@@ -15,13 +15,5 @@ int main()
 
 	LU::Matrix L(dimension);
 	LU::Matrix U(dimension);
-	LU::ComputeL(m2, L, U);
-	/*std::ifstream fin;
-	fin.open("test/mytest.txt");
-	if(!fin)
-		{
-			std::cerr << "Unable to open file " << std::endl;
-			exit(EXIT_FAILURE); /// STYLE IS NOTHING
-		}
-		*/
+	LU::ComputeLU(m2, L, U);
 }

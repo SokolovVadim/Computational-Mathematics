@@ -146,50 +146,58 @@ namespace LU
 
 	// ----------------------------------------------------------------
 
-	void ComputeL(Matrix & A, Matrix & L, Matrix & U)
+	void ComputeLU(Matrix & A, Matrix & L, Matrix & U)
 	{
-		// std::size_t n = A.GetDimension();
-		//n = 0;
+		
 		U = A;
 		L.FillWithZeoes();
 
+		/*
 		std::cout << "L" << std::endl;
 		L.Print();
 		std::cout << "U" << std::endl;
 		U.Print();
+		*/
+		std::size_t dimension = A.GetDimension();
 
-		std::size_t dimension_ = A.GetDimension();
+		// Prepare L matrix
 
-		for(uint32_t i = 0; i < dimension_; i++)
-			for(uint32_t j = i; j < dimension_; j++)
-				L[j][i] = U[j][i] / U[i][i];
+		for(uint32_t i = 0; i < dimension; i++)
+			for(uint32_t j = i; j < dimension; j++)
+			{
+				if(i == j) // dioganal elements == 1
+					L[i][j] = 1;
+				else
+					L[j][i] = U[j][i] / U[i][i];
+			}
 
+		/*
 		std::cout << "L" << std::endl;
 		L.Print();
-	
-		for(uint32_t k = 1; k < dimension_; k++)
-		{
-			for(uint32_t i = k-1; i < dimension_; i++)
-				for(uint32_t j = i; j < dimension_; j++)
-					L[j][i]=U[j][i]/U[i][i];
+		*/
 
-			for(uint32_t i = k; i < dimension_; i++)
-				for(uint32_t j = k-1; j < dimension_; j++)
-					U[i][j]=U[i][j]-L[i][k-1]*U[k-1][j];
+		// Fulfill U and L matrix
+	
+		for(uint32_t k = 1; k < dimension; k++)
+		{
+			for(uint32_t i = k - 1; i < dimension; i++)
+				for(uint32_t j = i; j < dimension; j++)
+				{
+					if(i == j)
+						L[j][i] = 1;
+					else
+						L[j][i] = U[j][i] / U[i][i];
+				}
+
+			for(uint32_t i = k; i < dimension; i++)
+				for(uint32_t j = k - 1; j < dimension; j++)
+					U[i][j] = U[i][j] - L[i][k - 1] * U[k - 1][j];
 		}
 
 		std::cout << "L" << std::endl;
 		L.Print();
 		std::cout << "U" << std::endl;
 		U.Print();
-
-	}
-
-
-	// ----------------------------------------------------------------
-
-	void ComputeU(Matrix & A, Matrix & L, Matrix & U)
-	{
 
 	}
 
