@@ -30,6 +30,27 @@ namespace LU
 
 	// ----------------------------------------------------------------
 
+	Matrix::Matrix(std::size_t dimention, const std::string & filename):
+		dimention_(dimention)
+	{
+		// file openning
+		fin_.open(filename);
+		if(!fin_)
+		{
+			std::cerr << "Unable to open file " << filename << std::endl;
+			exit(EXIT_FAILURE); /// STYLE IS NOTHING
+		}
+		// memory allocation
+		matrix_ = new double*[dimention_];
+		for(uint32_t i(0); i < dimention_; ++i)
+		{
+			matrix_[i] = new double[dimention_];
+		}
+		std::cout << "Matrix constructed" << std::endl;
+	}
+
+	// ----------------------------------------------------------------
+
 	Matrix::~Matrix()
 	{
 		for(uint32_t i(0); i < dimention_; ++i)
@@ -37,6 +58,7 @@ namespace LU
 			delete[] matrix_[i];
 		}
 		delete[] matrix_;
+		fin_.close();
 	}
 
 	// ----------------------------------------------------------------
@@ -56,11 +78,11 @@ namespace LU
 
 	// ----------------------------------------------------------------
 
-	size_t ReadDimention(std::string & filename)
+	bool Matrix::Read()
 	{
-		
 		return true;
 	}
 
 	// ----------------------------------------------------------------
+
 }

@@ -8,18 +8,16 @@ namespace LU{
 	public:
 		Matrix();
 		Matrix(std::size_t dimention);
+		Matrix(std::size_t dimention, const std::string & filename);
+
 		~Matrix();
 
 		void Print();
+		bool Read();
 
 	private:
 		std::size_t    dimention_;
+		std::ifstream  fin_;
 		double **      matrix_;
-		std::ifstream fin;
 	};
-
-	// open file by filename
-	size_t ReadDimention();
-	// read matrix in Matrix structure
-
 };
