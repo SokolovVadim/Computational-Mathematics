@@ -1,6 +1,6 @@
 # Computational-Mathematics
 Programming task in CM course in MIPT
-# Task in Russian
+# Task 1: LU-decomposition
 Вам нужно запрограммировать решение системы линейных
 уравнений с помощью LU-разложения.
 и убедиться, что оно работает на приложенных матрицах.
@@ -21,3 +21,8 @@ Programming task in CM course in MIPT
   адрес, переименовав исходник в 711_ivanov.cpp или тп.
 * Работайте самостоятельно, программы проверяются на плагиат.
 
+# Build
+```
+make
+./run path_to_file
+```
