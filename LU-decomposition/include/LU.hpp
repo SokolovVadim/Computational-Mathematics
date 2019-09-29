@@ -20,6 +20,7 @@ namespace LU{
 
 		void operator = (const Matrix &Other);
 		double* &operator[](std::size_t index);
+		double* operator*(double* vector);
 
 	private:
 		std::size_t    dimension_;
@@ -29,3 +30,10 @@ namespace LU{
 
 	void ComputeLU(Matrix & A, Matrix & L, Matrix & U);	
 };
+
+void FillVector(double* vector, std::size_t dimention);
+void PrintVector(double* vector, std::size_t dimension);
+double* FindingY(LU::Matrix & L, double* b);
+double* FindingX(LU::Matrix & U, double* y);
+
+double CalculateNorm(double* vector, size_t dimension);
