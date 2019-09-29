@@ -7,7 +7,7 @@ int main()
 	std::cout << "Hello!" << std::endl;
 	LU::Matrix matrix;
 	LU::Matrix m1(2);
-	LU::Matrix m2(2, "test/mytest.txt");
+	LU::Matrix m2("test/mytest.txt");
 	/*std::ifstream fin;
 	fin.open("test/mytest.txt");
 	if(!fin)

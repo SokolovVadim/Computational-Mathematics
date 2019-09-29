@@ -30,8 +30,7 @@ namespace LU
 
 	// ----------------------------------------------------------------
 
-	Matrix::Matrix(std::size_t dimention, const std::string & filename):
-		dimention_(dimention)
+	Matrix::Matrix(const std::string & filename)
 	{
 		// file openning
 		fin_.open(filename);
@@ -40,6 +39,9 @@ namespace LU
 			std::cerr << "Unable to open file " << filename << std::endl;
 			exit(EXIT_FAILURE); /// STYLE IS NOTHING
 		}
+
+		this->ReadAndSetDimention();
+
 		// memory allocation
 		matrix_ = new double*[dimention_];
 		for(uint32_t i(0); i < dimention_; ++i)
@@ -80,6 +82,18 @@ namespace LU
 
 	bool Matrix::Read()
 	{
+
+		return true;
+	}
+
+	// ----------------------------------------------------------------
+
+	bool Matrix::ReadAndSetDimention()
+	{
+		size_t dimention(0);
+		fin_ >> dimention;
+		std::cout << "Dimention read: " << dimention << std::endl;
+		this->dimention_ = dimention;
 		return true;
 	}
 

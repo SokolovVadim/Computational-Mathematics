@@ -8,11 +8,12 @@ namespace LU{
 	public:
 		Matrix();
 		Matrix(std::size_t dimention);
-		Matrix(std::size_t dimention, const std::string & filename);
+		Matrix(const std::string & filename);
 
 		~Matrix();
 
 		void Print();
+		bool ReadAndSetDimention();
 		bool Read();
 
 	private:
