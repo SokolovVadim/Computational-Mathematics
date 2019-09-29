@@ -4,7 +4,7 @@
 
 void FillVector(double* vector, std::size_t dimension)
 {
-	std::cout << "Vector:" << std::endl;
+	// std::cout << "Vector:" << std::endl;
 	for(uint32_t i(0); i < dimension; ++i)
 		vector[i] = i + 1;
 }
@@ -60,4 +60,11 @@ double CalculateNorm(double* vector, size_t dimension)
 	for(uint32_t i(0); i < dimension; ++i)
 		norm += vector[i] * vector[i];
 	return sqrt(norm);
+}
+
+double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension)
+{
+	for(uint32_t i(0); i < dimension; ++i)
+			vector1[i] -= vector2[i];
+	return vector1;
 }

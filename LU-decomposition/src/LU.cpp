@@ -8,7 +8,7 @@ namespace LU
 		dimension_(0),
 		matrix_(nullptr)
 	{
-		std::cout << "Default matrix" << std::endl;
+		// std::cout << "Default matrix" << std::endl;
 	}
 
 	// ----------------------------------------------------------------
@@ -18,14 +18,14 @@ namespace LU
 	{
 		matrix_ = new double*[dimension_];
 
-		std::cout << "Cicle allocation" << std::endl;
+		// std::cout << "Cicle allocation" << std::endl;
 
 		for(uint32_t i(0); i < dimension_; ++i)
 		{
 			matrix_[i] = new double[dimension_];
 		}
 
-		std::cout << "Matrix constructed" << std::endl;
+		// std::cout << "Matrix constructed" << std::endl;
 	}
 
 	// ----------------------------------------------------------------
@@ -48,7 +48,7 @@ namespace LU
 		{
 			matrix_[i] = new double[dimension_];
 		}
-		std::cout << "Matrix constructed" << std::endl;
+		// std::cout << "Matrix constructed" << std::endl;
 	}
 
 	// ----------------------------------------------------------------
@@ -102,7 +102,7 @@ namespace LU
 	{
 		size_t dimension(0);
 		fin_ >> dimension;
-		std::cout << "dimension read: " << dimension << std::endl;
+		// std::cout << "dimension read: " << dimension << std::endl;
 		this->dimension_ = dimension;
 		return true;
 	}
@@ -210,10 +210,10 @@ namespace LU
 					U[i][j] = U[i][j] - L[i][k - 1] * U[k - 1][j];
 		}
 
-		std::cout << "L" << std::endl;
+		/*std::cout << "L" << std::endl;
 		L.Print();
 		std::cout << "U" << std::endl;
-		U.Print();
+		U.Print();*/
 
 	}
 

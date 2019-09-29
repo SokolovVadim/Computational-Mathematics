@@ -35,5 +35,5 @@ void FillVector(double* vector, std::size_t dimention);
 void PrintVector(double* vector, std::size_t dimension);
 double* FindingY(LU::Matrix & L, double* b);
 double* FindingX(LU::Matrix & U, double* y);
-
+double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension);
 double CalculateNorm(double* vector, size_t dimension);
