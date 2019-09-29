@@ -1,6 +1,6 @@
 # Computational-Mathematics
 Programming task in CM course in MIPT
-#Task in Russian
+# Task in Russian
 Вам нужно запрограммировать решение системы линейных
 уравнений с помощью LU-разложения.
 и убедиться, что оно работает на приложенных матрицах.
