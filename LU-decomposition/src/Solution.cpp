@@ -19,8 +19,8 @@ double* FindingY(LU::Matrix & L, double* b)
 {
 	size_t dimension = L.GetDimension();
 	double* res = new double[dimension];
-		for(uint32_t i(0); i < dimension; ++i)
-			res[i] = 0.0;
+		/*for(uint32_t i(0); i < dimension; ++i)
+			res[i] = 0.0;*/
 	for(uint32_t i(0); i < dimension; ++i)
 	{
 		double sum = 0;
@@ -37,8 +37,8 @@ double* FindingX(LU::Matrix & U, double* y)
 	size_t dimension = U.GetDimension();
 	// std::cout << "dimU = " << dimension << std::endl;
 	double* res = new double[dimension];
-		for(uint32_t i(0); i < dimension; ++i)
-			res[i] = 0.0;
+		/*for(uint32_t i(0); i < dimension; ++i)
+			res[i] = 0.0;*/
 
 	// std::cout << "I'm here" << std::endl; 
 	for(int i = (dimension - 1); i >= 0; i--)
