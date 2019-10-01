@@ -122,15 +122,15 @@ namespace LU
 	double * Matrix::operator*(double* vector)
 	{
 		double* res = new double[dimension_];
-		for(uint32_t i(0); i < dimension_; ++i)
-			res[i] = 0.0;
+		/*for(uint32_t i(0); i < dimension_; ++i)
+			res[i] = 0.0;*/
 		for(uint32_t i(0); i < dimension_; ++i)
 			for(uint32_t j(0); j < dimension_; ++j)
 				res[i] += matrix_[i][j] * vector[j];
 		// PrintVector(res, dimension_);
-		for(uint32_t i(0); i < dimension_; ++i)
-			vector[i] = res[i];
-		return vector;
+		/*for(uint32_t i(0); i < dimension_; ++i)
+			vector[i] = res[i];*/
+		return res;
 	}
 
 	// ----------------------------------------------------------------
