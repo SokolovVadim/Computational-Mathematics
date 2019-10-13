@@ -6,6 +6,7 @@ namespace SOR{
 	/*const double OMEGA = 1.5; // relaxation parameter
 	const double RESIDUAL = 1e-6; // norm of residual
 	const double min_residual = 100.0;*/
+	const double MAX_NORM = 100000.0;
 
 	class Matrix
 	{
@@ -34,6 +35,8 @@ namespace SOR{
 
 	int Successive_Overrelaxation_algorithm(Matrix & matrix, double* vectorB, double* vectorInit,
 												double min_residual, double relaxation_parameter);
+	int Gauss_Seidel_algorithm( Matrix & matrix, double* vectorB,
+								double* vectorInit, double min_norm);
 	
 };
 
@@ -41,3 +44,4 @@ void FillVector(double* vector, std::size_t dimension);
 void PrintVector(double* vector, std::size_t dimension);
 double CalculateNorm(double* vector, size_t dimension);
 double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension);
+double CalculateDistance(double* vector1, double* vector2, std::size_t dimension);

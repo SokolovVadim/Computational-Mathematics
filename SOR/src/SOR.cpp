@@ -186,15 +186,45 @@ namespace SOR
 		return 0;
 	}
 
-	/*
-	for j in range(A.shape[1]):
-        if j != i:
-          sigma += A[i][j] * phi[j]
-      phi[i] = (1 - omega) * phi[i] + (omega / A[i][i]) * (b[i] - sigma)
-	*/
+	int Gauss_Seidel_algorithm( Matrix & matrix, double* vectorB,
+								double* vectorInit, double min_norm)
+	{
+		std::size_t dimension = matrix.GetDimension();
+		double* vectorPrev = new double[dimension];
+		double norm = MAX_NORM;
+		std::size_t step(0);
+		while(norm > min_norm)
+		{
+			for(uint32_t i(0); i < dimension; ++i)
+				vectorPrev[i] = vectorInit[i];
+			for(uint32_t i(0); i < dimension; ++i)
+			{
+				double sum(0.0);
+				for(uint32_t j(0); j < i; ++j)
+					sum += matrix[i][j] * vectorInit[j];
+				for(uint32_t j(i + 1); j < dimension; ++j)
+					sum += matrix[i][j] * vectorPrev[j];
+				vectorInit[i] = (vectorB[i] - sum) / matrix[i][i];
+			}
+			norm = CalculateDistance(vectorInit, vectorPrev, dimension);
+			std::cout << "step = " << step << ", norm = " << norm << std::endl;
+			step++;
+		}
+		delete[] vectorPrev;
+		return 0;
+	}
 
 };
 
+double CalculateDistance(double* vector1, double* vector2, std::size_t dimension)
+{
+	double norm(0.0);
+	for(uint32_t i(0); i < dimension; ++i)
+	{
+		norm = pow(vector1[i] - vector2[i], 2);
+	}
+	return sqrt(norm);
+}
 
 double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension)
 {
