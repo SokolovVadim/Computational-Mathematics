@@ -76,7 +76,7 @@ namespace SOR
 		{
 			for(uint32_t j(0); j < dimension_; ++j)
 			{
-				std::cout << matrix_[i][j] << " ";
+				std::cout << "\t" << matrix_[i][j];
 			}
 			std::cout << std::endl;
 		}
@@ -129,15 +129,79 @@ namespace SOR
 
 	// ----------------------------------------------------------------
 
-
-	int Successive_Overrelaxation_algorithm()
+	double * Matrix::operator*(double* vector)
 	{
-		
+		double* res = new double[dimension_];
+		/*for(uint32_t i(0); i < dimension_; ++i)
+			res[i] = 0.0;*/
+		for(uint32_t i(0); i < dimension_; ++i)
+			for(uint32_t j(0); j < dimension_; ++j)
+				res[i] += matrix_[i][j] * vector[j];
+		// PrintVector(res, dimension_);
+		/*for(uint32_t i(0); i < dimension_; ++i)
+			vector[i] = res[i];*/
+		return res;
 	}
+
+	// ----------------------------------------------------------------
+
+	double* &Matrix::operator[](std::size_t index)
+	{
+		if(index >= dimension_)
+		{
+			std::cout << "index is out of range" << std::endl;
+		}
+		return this->matrix_[index];
+	}
+
+	// ----------------------------------------------------------------
+
+	int Successive_Overrelaxation_algorithm( Matrix & matrix, double* vectorB, double* vectorInit,
+												double min_residual, double relaxation_parameter)
+	{
+		std::size_t dimension = matrix.GetDimension();
+		double residual = CalculateNorm(CalculateDifference(matrix * vectorInit, vectorB, dimension), dimension); // INIT PROPERLY HERE!!!!!
+		std::cout << "Initial residual: " << residual << std::endl;
+
+		uint32_t step(0);
+		while(residual > min_residual)
+		{
+			for(uint32_t i(0); i < dimension; ++i)
+			{
+				double sigma(0.0);
+				for(uint32_t j(0); j < dimension; ++j)
+				{
+					if(i != j)
+						sigma += matrix[i][j] * vectorInit[j];
+				}
+				vectorInit[i] = (1 - relaxation_parameter) * vectorInit[i] + (relaxation_parameter / matrix[i][i]) * (vectorB[i] - sigma);
+			}
+			residual = CalculateNorm(CalculateDifference(matrix * vectorInit, vectorB, dimension), dimension);
+			std::cout << "Step: " << step << ",\tresidual: " << residual << "\t";
+			PrintVector(vectorInit, dimension);
+			step++;
+		}
+
+
+		return 0;
+	}
+
+	/*
+	for j in range(A.shape[1]):
+        if j != i:
+          sigma += A[i][j] * phi[j]
+      phi[i] = (1 - omega) * phi[i] + (omega / A[i][i]) * (b[i] - sigma)
+	*/
 
 };
 
 
+double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension)
+{
+	for(uint32_t i(0); i < dimension; ++i)
+			vector1[i] -= vector2[i];
+	return vector1;
+}
 
 void FillVector(double* vector, std::size_t dimension)
 {
@@ -149,7 +213,8 @@ void FillVector(double* vector, std::size_t dimension)
 void PrintVector(double* vector, std::size_t dimension)
 {
 	for(uint32_t i(0); i < dimension; ++i)
-		std::cout << vector[i] << std::endl;
+		std::cout << std::fixed << std::setprecision(12) << vector[i] << "\t";
+	std::cout << std::endl;
 }
 
 double CalculateNorm(double* vector, size_t dimension)
