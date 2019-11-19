@@ -1,0 +1,41 @@
+#include <string>
+#include <fstream>
+#include <iomanip>
+namespace Newton{
+	
+	const double MAX_NORM = 100000.0;
+
+	class Matrix
+	{
+	public:
+		Matrix();
+		Matrix(std::size_t dimension);
+		Matrix(const std::string & filename);
+
+		~Matrix();
+
+		void Print();
+		bool ReadAndSetDimension();
+		bool Read();
+		const std::size_t GetDimension() const;
+		void FillWithZeoes();
+
+		// void operator = (const Matrix &Other);
+		double* &operator[](std::size_t index);
+		double* operator*(double* vector);
+
+	private:
+		std::size_t    dimension_;
+		std::ifstream  fin_;
+		double **      matrix_;
+	};
+
+	
+	
+};
+
+void FillVector(double* vector, std::size_t dimension);
+void PrintVector(double* vector, std::size_t dimension);
+double CalculateNorm(double* vector, size_t dimension);
+double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension);
+double CalculateDistance(double* vector1, double* vector2, std::size_t dimension);
