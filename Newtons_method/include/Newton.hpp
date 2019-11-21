@@ -4,6 +4,7 @@
 namespace Newton{
 	
 	const double MAX_NORM = 100000.0;
+	const double MIN_NORM = 1e-6;
 
 	class Matrix
 	{
@@ -32,7 +33,7 @@ namespace Newton{
 
 	void 		Construct_diff_matrix	(Matrix & matrix_a, Newton::Matrix & matrix_m, double* vector_exp);
 	void        Construct_vector_c      (Matrix & matrix_a, double* vector_exp, double* vector_c, std::size_t dimension);
-	void        Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c);
+	void        Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c, double* vector_init);
 	
 };
 

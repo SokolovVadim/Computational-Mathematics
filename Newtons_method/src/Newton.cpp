@@ -182,10 +182,21 @@ namespace Newton
 		}
 	}
 
-	void Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c)
+	void Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c, double* vector_init)
 	{
 		std::size_t dimension = matrix_a.GetDimension();
 		Matrix matrix_m(dimension);
+		double norm(MIN_NORM);
+		double* vector_g = new double[dimension];
+
+		// std::cout << "min norm: " << std::setprecision(12) << MIN_NORM + 1.0 << std::endl;
+		for(std::size_t i(0); i < dimension; ++i)
+			vector_g[i] = vector_init[i];
+		while(norm > MIN_NORM)
+		{
+
+		}
+
 		Newton::Construct_diff_matrix(matrix_a, matrix_m, vector_exp);
 		matrix_m.Print();
 

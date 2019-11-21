@@ -35,10 +35,13 @@ int main(int argc, char* argv[]	)
 
 	// Newton::Matrix matrix_m(dimension);
 
-
-	Newton::Linear_system_solution(matrix_a, vector_exp, vector_c);
+	double* vector_init = new double[dimension];
+	FillVector(vector_init, dimension);
+	std::cout << "Vector_init:" << std::endl;
+	PrintVector(vector_init, dimension);
+	Newton::Linear_system_solution(matrix_a, vector_exp, vector_c, vector_init);
 
 	
-
+	delete[] vector_exp;
 	delete[] vector_c;
 }
