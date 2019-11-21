@@ -30,12 +30,15 @@ namespace Newton{
 		double **      matrix_;
 	};
 
-	
+	void 		Construct_diff_matrix	(Matrix & matrix_a, Newton::Matrix & matrix_m, double* vector_exp);
+	void        Construct_vector_c      (Matrix & matrix_a, double* vector_exp, double* vector_c, std::size_t dimension);
+	void        Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c);
 	
 };
 
-void FillVector(double* vector, std::size_t dimension);
-void PrintVector(double* vector, std::size_t dimension);
-double CalculateNorm(double* vector, size_t dimension);
-double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension);
-double CalculateDistance(double* vector1, double* vector2, std::size_t dimension);
+void 		FillVector 				(double* vector, std::size_t dimension);
+void 		PrintVector				(double* vector, std::size_t dimension);
+double 		CalculateNorm			(double* vector, size_t dimension);
+double* 	CalculateDifference		(double* vector1, double* vector2, std::size_t dimension);
+double 		CalculateDistance		(double* vector1, double* vector2, std::size_t dimension);
+void 		FillVectorExp			(double* vector, std::size_t dimension);

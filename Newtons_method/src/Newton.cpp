@@ -154,7 +154,42 @@ namespace Newton
 		return this->matrix_[index];
 	}
 
-	
+	// ----------------------------------------------------------------
+
+	void Construct_diff_matrix(Newton::Matrix & matrix_a, Newton::Matrix & matrix_m, double* vector_exp)
+	{
+		std::size_t dimension = matrix_a.GetDimension();
+		for(std::size_t i(0); i < dimension; ++i)
+			for(std::size_t j(0); j < dimension; ++j)
+			{
+				if(i == j)
+					matrix_m[i][j] = matrix_a[i][j] + vector_exp[i];
+				else
+					matrix_m[i][j] = matrix_a[i][j];
+			}
+	}
+
+	// ----------------------------------------------------------------
+
+	void Construct_vector_c(Newton::Matrix & matrix_a, double* vector_exp, double* vector_c, std::size_t dimension)
+	{
+		// c[i] = -f[i]
+		for(std::size_t i(0); i < dimension; ++i)
+		{
+			for(std::size_t j(0); j < dimension; ++j)
+				vector_c[i] -= matrix_a[i][j] * vector_exp[j];
+			vector_c[i] += exp(-vector_exp[i]);
+		}
+	}
+
+	void Linear_system_solution  (Matrix & matrix_a, double* vector_exp, double* vector_c)
+	{
+		std::size_t dimension = matrix_a.GetDimension();
+		Matrix matrix_m(dimension);
+		Newton::Construct_diff_matrix(matrix_a, matrix_m, vector_exp);
+		matrix_m.Print();
+
+	}
 
 };
 
@@ -185,7 +220,7 @@ void FillVector(double* vector, std::size_t dimension)
 void PrintVector(double* vector, std::size_t dimension)
 {
 	for(uint32_t i(0); i < dimension; ++i)
-		std::cout << std::fixed << std::setprecision(12) << vector[i] << "\t";
+		std::cout << std::setprecision(6) << vector[i] << "\t"; // std::fixed << std::setprecision() << ......
 	std::cout << std::endl;
 }
 
@@ -196,3 +231,13 @@ double CalculateNorm(double* vector, size_t dimension)
 		norm += vector[i] * vector[i];
 	return sqrt(norm);
 }
+
+void FillVectorExp(double* vector, std::size_t dimension)
+{
+	for(uint32_t i(0); i < dimension; ++i)
+	{
+		vector[i] = exp(-vector[i]);
+	}
+	// return vector;
+}
+
