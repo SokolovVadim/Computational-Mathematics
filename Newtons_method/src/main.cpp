@@ -29,9 +29,11 @@ int main(int argc, char* argv[]	)
 	std::cout << "Vector_c:" << std::endl;
 	PrintVector(vector_c, dimension);
 
+	/*
 	FillVectorExp(vector_exp, dimension);
 	std::cout << "Vector_exp:" << std::endl;
 	PrintVector(vector_exp, dimension);
+	*/
 
 	// Newton::Matrix matrix_m(dimension);
 

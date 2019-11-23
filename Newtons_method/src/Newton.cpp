@@ -186,19 +186,29 @@ namespace Newton
 	{
 		std::size_t dimension = matrix_a.GetDimension();
 		Matrix matrix_m(dimension);
-		double norm(MIN_NORM);
+		double norm(MAX_NORM);
 		double* vector_g = new double[dimension];
 
 		// std::cout << "min norm: " << std::setprecision(12) << MIN_NORM + 1.0 << std::endl;
-		for(std::size_t i(0); i < dimension; ++i)
-			vector_g[i] = vector_init[i];
+		
 		while(norm > MIN_NORM)
 		{
+			FillVectorExp(vector_exp, dimension);
+			std::cout << "Vector_exp:" << std::endl;
+			PrintVector(vector_exp, dimension);
+			for(std::size_t i(0); i < dimension; ++i)
+				vector_g[i] = vector_init[i];
+			
+			Newton::Construct_diff_matrix(matrix_a, matrix_m, vector_exp);
+			matrix_m.Print();
 
+			// gonna get vector_g => vector_init += vector_g
+			// vector_exp = Fill_vector_exp(vector init)
+
+			break; // just to debug
 		}
 
-		Newton::Construct_diff_matrix(matrix_a, matrix_m, vector_exp);
-		matrix_m.Print();
+		
 
 	}
 
