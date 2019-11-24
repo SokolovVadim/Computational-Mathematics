@@ -16,9 +16,7 @@ int main(int argc, char* argv[]	)
 	std::size_t dimension = matrix_a.GetDimension();
 	std::cout << "dimension = " << dimension << std::endl;
 
-	std::vector<double> v_right_side(dimension);
-	for(auto i: v_right_side)
-		std::cout << "v_right_side[i] = "<< i << std::endl;
+	
 
 	// construct_diff_matrix()
 	// construct vector c

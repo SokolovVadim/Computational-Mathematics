@@ -29,6 +29,8 @@ namespace Newton
 	{
 		// c[i] = -f[i]
 		for(std::size_t i(0); i < dimension; ++i)
+			vector_c[i] = 0;
+		for(std::size_t i(0); i < dimension; ++i)
 		{
 			for(std::size_t j(0); j < dimension; ++j)
 				vector_c[i] -= matrix_a[i][j] * vector_u[j];
@@ -44,6 +46,7 @@ namespace Newton
 
 	void Linear_system_solution(LU::Matrix & matrix_a, double* vector_u)
 	{
+		vector_u[0] = 1.001;
 		std::size_t dimension = matrix_a.GetDimension();
 		LU::Matrix matrix_m(dimension);
 		double norm(MAX_NORM);
@@ -80,23 +83,29 @@ namespace Newton
 	
 
 			double* vectorXX = FindingX(U, vectorY);
-			std::cout << "Solution = " << std::endl;
+			std::cout << "Solution Mg = c:" << std::endl;
 			PrintVector(vectorXX, dimension);
 
-			std::cout << "vector u:" << std::endl;
+			// LU decomposition ends here
+
+			/*std::cout << "vector u:" << std::endl;
 			PrintVector(vector_u, dimension);
 			std::cout << "vector g:" << std::endl;
-			PrintVector(vector_g, dimension);
+			PrintVector(vector_g, dimension);*/
 
 			for(std::size_t i(0); i < dimension; ++i)
-				vector_g[i] = vectorXX[i];
+				vector_g[i] = vector_u[i]; // u_n
 
 			for(std::size_t i(0); i < dimension; ++i)
-				vector_u[i] += vector_g[i];
-			std::cout << "vector u:" << std::endl;
-			PrintVector(vector_u, dimension);
+				vector_u[i] += vectorXX[i]; // u_n+1
 			std::cout << "vector g:" << std::endl;
 			PrintVector(vector_g, dimension);
+			
+			std::cout << std::endl << "Nearest solution: vector u:" << std::endl;
+			std::cout << "****************************" << std::endl;
+			PrintVector(vector_u, dimension);
+			std::cout << "****************************" << std::endl;
+			
 
 			norm = CalculateDistance(vector_g, vector_u, dimension);
 			std::cout << "-------------------------------------------------------------------------------" << std::endl;
@@ -104,7 +113,6 @@ namespace Newton
 			std::cout << "-------------------------------------------------------------------------------" << std::endl;
 			step++;
 
-			// LU decomposition ends here
 
 
 			/*vector_init = solve_eq(...);
