@@ -41,11 +41,8 @@ int main(int argc, char* argv[]	)
 
 	// Newton::Matrix matrix_m(dimension);
 
-	double* vector_init = new double[dimension];
-	FillVector(vector_init, dimension);
-	std::cout << "Vector_init:" << std::endl;
-	PrintVector(vector_init, dimension);
-	Newton::Linear_system_solution(matrix_a, vector_u, vector_init);
+	
+	Newton::Linear_system_solution(matrix_a, vector_u);
 
 	
 	delete[] vector_u;
