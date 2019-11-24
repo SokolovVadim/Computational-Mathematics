@@ -1,4 +1,6 @@
+// #include "../../LU-decomposition/include/LU.hpp"
 #include "../include/Newton.hpp"
+// #include "../../LU-decomposition/include/LU.hpp"
 #include <iostream>
 #include <vector>
 
@@ -6,7 +8,7 @@ int main(int argc, char* argv[]	)
 {
 	std::cout << "Hello!" << std::endl;
 
-	Newton::Matrix matrix_a(argv[1]);
+	LU::Matrix matrix_a(argv[1]);
 
 	matrix_a.Read();
 	matrix_a.Print();
@@ -21,13 +23,15 @@ int main(int argc, char* argv[]	)
 	// construct_diff_matrix()
 	// construct vector c
 	// cycle: solve equation and calculate norm
-	double* vector_exp = new double[dimension];
-	FillVector(vector_exp, dimension);
+	double* vector_u = new double[dimension];
+	FillVector(vector_u, dimension);
 
+	/*
 	double* vector_c = new double[dimension];
-	Newton::Construct_vector_c(matrix_a, vector_exp, vector_c, dimension);
+	Newton::Construct_vector_c(matrix_a, vector_u, vector_c, dimension);
 	std::cout << "Vector_c:" << std::endl;
 	PrintVector(vector_c, dimension);
+	*/
 
 	/*
 	FillVectorExp(vector_exp, dimension);
@@ -41,9 +45,9 @@ int main(int argc, char* argv[]	)
 	FillVector(vector_init, dimension);
 	std::cout << "Vector_init:" << std::endl;
 	PrintVector(vector_init, dimension);
-	Newton::Linear_system_solution(matrix_a, vector_exp, vector_c, vector_init);
+	Newton::Linear_system_solution(matrix_a, vector_u, vector_init);
 
 	
-	delete[] vector_exp;
-	delete[] vector_c;
+	delete[] vector_u;
+	// delete[] vector_c;
 }
