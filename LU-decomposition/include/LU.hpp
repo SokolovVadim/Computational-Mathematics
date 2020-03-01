@@ -1,3 +1,5 @@
+#ifndef LU_HPP
+#define LU_HPP
 #include <cstddef>
 // #include <iostream>
 #include <fstream>
@@ -37,3 +39,5 @@ double* FindingY(LU::Matrix & L, double* b);
 double* FindingX(LU::Matrix & U, double* y);
 double* CalculateDifference(double* vector1, double* vector2, std::size_t dimension);
 double CalculateNorm(double* vector, size_t dimension);
+
+#endif // LU_HPP

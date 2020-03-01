@@ -18,27 +18,33 @@ int main(int argc, char* argv[])
 	LU::Matrix U(dimension);
 	LU::ComputeLU(m2, L, U);
 
-	double* vectorX = new double[dimension]; // 1 2 3 4 5
-	FillVector(vectorX, dimension);
+	/*double* vectorX = new double[dimension]; // 1 2 3 4 5
+	//FillVector(vectorX, dimension);
+	vectorX[0] = 0;
+	vectorX[1] = 0;
+	vectorX[2] = 0;
 	std::cout << "Vector X = " << std::endl;
-	PrintVector(vectorX, dimension);
+	PrintVector(vectorX, dimension);*/
 	
-	double* vectorB = m2 * vectorX;
-	
+	double* vectorB = new double[dimension]; // m2 * vectorX;
+	vectorB[0] = 1;
+	vectorB[1] = -2;
+	vectorB[2] = 2;
+
 	std::cout << "Vector B = " << std::endl;
 	PrintVector(vectorB, dimension);
 
 	double* vectorY = FindingY(L, vectorB);
-	/*std::cout << "Vector Y = " << std::endl;
-	PrintVector(vectorY, dimension);*/
+	// std::cout << "Vector Y = " << std::endl;
+	// PrintVector(vectorY, dimension);
 
 	double* vectorXX = FindingX(U, vectorY);
-	std::cout << "Vector Y = " << std::endl;
+	std::cout << "Solution = " << std::endl;
 	PrintVector(vectorXX, dimension);
 	// PrintVector(vectorX, dimension);
 
-	double *VectorDif = CalculateDifference(vectorXX, vectorX, dimension);
+	// double *VectorDif = CalculateDifference(vectorXX, vectorX, dimension);
 	// PrintVector(VectorDif, dimension);
-	double norm = CalculateNorm(VectorDif, dimension);
-	std::cout << "norm(x - y) = " << norm << std::endl;
+	// double norm = CalculateNorm(VectorDif, dimension);
+	// std::cout << "norm(x - y) = " << norm << std::endl;
 }
