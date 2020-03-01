@@ -55,25 +55,26 @@ void RungeKutta(double tau, double * coord, double * velocity){
 	
 }
 
-void Print_data(double tau, double * coord, double * velocity)
+void Print_data(double tau, double * coordE, double * velocityE, double * coordRK, double * velocityRK, double * coordS, double * velocityS)
 {
 	for(int i(0); i <= PERIOD_NUMBER * N; ++i)
 	{
-		// fout << "coord[" << i << "] = " << coord[i] << ",\tvelocity[" << i << "] = " << velocity[i] << std::endl;
-		// fflush(stdout);
-		fout << i * tau << ";" << coord[i] << std::endl;
+		std::cout << tau * i << ",\t" << coordE[i] << ",\t" << coordRK[i] << ",\t" << coordS[i] << std::endl;
+		fflush(stdout);
+		// fout << i * tau << ";" << coord[i] << std::endl;
 	}
 }
 
-void Simple_solution(double tau)
+void Simple_solution(double tau, double* coordS)
 {
 	double OMEGA = sqrt(double(G) / double(L) - (double(LAMBDA) / double(L)) * (double(LAMBDA) / double(L)));
 	for(int i(0); i <= PERIOD_NUMBER * N; ++i)
 	{
 		double A = double(V0) / double(OMEGA);
 		double coord = A * exp(double(-LAMBDA * i * tau) / double(L)) * sin(double(OMEGA * i * tau));
+		coordS[i] = coord;
 		// fout << "coord[" << i << "] = " << coord << std::endl;
-		fout << i * tau << ";" << coord << std::endl;
+		//fout << i * tau << ";" << coord << std::endl;
 	}
 }
 
@@ -93,15 +94,23 @@ int main()
 	std::cout << "tau = " <<  tau << std::endl;
 
 	// array mem alloc for N + 1 points from one period for N tau
-	double* coord =    new double[PERIOD_NUMBER * N + 1];
-	double* velocity = new double[PERIOD_NUMBER * N + 1];
+	double* coordE =    new double[PERIOD_NUMBER * N + 1];
+	double* velocityE = new double[PERIOD_NUMBER * N + 1];
+	double* coordRK =    new double[PERIOD_NUMBER * N + 1];
+	double* velocityRK = new double[PERIOD_NUMBER * N + 1];
+	double* coordS =    new double[PERIOD_NUMBER * N + 1];
+	double* velocityS = new double[PERIOD_NUMBER * N + 1];
 
-	EulerSolution(tau, coord, velocity);
-	// RungeKutta(tau, coord, velocity);
-	Print_data(tau, coord, velocity);
+	EulerSolution(tau, coordE, velocityE);
+	RungeKutta(tau, coordRK, velocityRK);
+	Simple_solution(tau, coordS);
 
-	// Simple_solution(tau);
+	Print_data(tau, coordE, velocityE, coordRK, velocityRK, coordS, velocityS);
 
-	delete[] coord;
-	delete[] velocity;
+	delete[] coordE;
+	delete[] velocityE;
+	delete[] coordRK;
+	delete[] velocityRK;
+	delete[] coordS;
+	delete[] velocityS;
 }
