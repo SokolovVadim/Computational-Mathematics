@@ -7,13 +7,17 @@ long int ReadArg(char * str);
 int main(int argc, char** argv)
 {
 	if(argc < 2){
-		std::cout << "Number of grid intervals required!\n";
+		std::cout << "Error! Number of grid intervals required!\n";
 		exit(EXIT_FAILURE);
 	}
 	std::size_t n = ReadArg(argv[1]);
+	if(n < 2){
+		std::cout << "Error! Number of grid intervals should not be less than 2\n";
+		exit(EXIT_FAILURE);
+	}
 	
 	Matrix matrix(n);
-	TridiagonalAlgo(matrix);
+	matrix.TridiagonalAlgo();
 
 	return 0;
 }

@@ -9,6 +9,7 @@ public:
 	~Matrix();
 	std::size_t GetDim() const;
 	void PrintVector();
+	bool TridiagonalAlgo();
 private:
 	std::size_t dimension_;
 	std::vector<double> up_;
