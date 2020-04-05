@@ -63,7 +63,7 @@ std::vector<double> CalculateRightSide(std::size_t dim)
 {
 	std::vector<double> right;
 	for(std::size_t i(0); i < dim + 1; ++i)
-		right.push_back((2.0 / (dim * dim)) * exp(double(i) / dim));
+		right.push_back((2.0 / ((dim + 1) * (dim + 1))) * exp(double(i) / dim));
 
 	return right;
 }
@@ -90,7 +90,7 @@ bool Matrix::TridiagonalAlgo()
 	
 	for(std::size_t i(1); i < dimension_; ++i)
 	{
-		new_down.push_back(middle_.at(i) - up_.at(i) * new_down.at(i - 1));
+		new_down.push_back(down_.at(i) / (middle_.at(i) - up_.at(i) * new_down.at(i - 1)));
 		new_right.push_back((right.at(i) - up_.at(i) * new_right.at(i - 1)) / (middle_.at(i) - up_.at(i) * new_down.at(i - 1)));
 	}
 
