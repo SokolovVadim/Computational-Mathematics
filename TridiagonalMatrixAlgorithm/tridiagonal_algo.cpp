@@ -62,9 +62,8 @@ double function(double x)
 std::vector<double> CalculateRightSide(std::size_t dim)
 {
 	std::vector<double> right;
-	std::cout << "right\n";
 	for(std::size_t i(0); i < dim + 1; ++i)
-		right.push_back(exp(double(i) / dim));
+		right.push_back((2.0 / (dim * dim)) * exp(double(i) / dim));
 
 	return right;
 }
@@ -77,6 +76,7 @@ bool Matrix::TridiagonalAlgo()
 	
 	std::vector<double> right = CalculateRightSide(dimension_);
 	
+	std::cout << "Right side:\n";
 	for (auto i : right)
 	   std::cout << i << ' ';
 	std::cout << std::endl;
@@ -86,21 +86,26 @@ bool Matrix::TridiagonalAlgo()
 	std::vector<double> y;
 
 	new_down.push_back(down_.front() / middle_.front());
-	std::cout << new_down.back() << std::endl;
-
 	new_right.push_back(right.front() / middle_.front());
-	std::cout << new_right.back() << std::endl;
-
-	std::cout << "Fill new_down\n";
+	
 	for(std::size_t i(1); i < dimension_; ++i)
 	{
 		new_down.push_back(middle_.at(i) - up_.at(i) * new_down.at(i - 1));
-		std::cout << "c[i]' = " << new_down.at(i) << std::endl;
 		new_right.push_back((right.at(i) - up_.at(i) * new_right.at(i - 1)) / (middle_.at(i) - up_.at(i) * new_down.at(i - 1)));
-		std::cout << "d[i]' = " << new_right.at(i) << std::endl;
 	}
 
 	new_right.push_back((right.at(dimension_ - 1) - up_.at(dimension_ - 1) * new_right.at(dimension_ - 2)) / (middle_.at(dimension_ - 1) - up_.at(dimension_ - 1) * new_down.at(dimension_ - 2)));
+
+	std::cout << "new_down:\n";
+	for (auto i : new_down)
+	   std::cout << i << '\t';
+	std::cout << std::endl;
+
+	std::cout << "new_right:\n";
+	for (auto i : new_right)
+	   std::cout << i << '\t';
+	std::cout << std::endl;
+
 
 	y.resize(dimension_);
 	y.at(dimension_ - 1) = new_right.at(dimension_ - 1);
