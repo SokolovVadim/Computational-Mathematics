@@ -1,5 +1,12 @@
+#ifndef TRIDIAGONAL_ALGO_HPP
+#define TRIDIAGONAL_ALGO_HPP
+
 #include <cstddef>
 #include <vector>
+#include <cmath>
+
+static const double A = 1.0;
+static const double B = 2.0 * exp(1);
 
 class Matrix
 {
@@ -18,3 +25,5 @@ private:
 };
 
 bool TridiagonalAlgo(Matrix & matrix);
+
+#endif // TRIDIAGONAL_ALGO_HPP
