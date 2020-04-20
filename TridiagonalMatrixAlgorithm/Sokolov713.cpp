@@ -202,6 +202,7 @@ void Matrix::SaveResults(std::vector<double> & approximate_solution)
 	{
 		double x(double(i) / dimension_);
 		fout_ << x << " " << approximate_solution[i] << " " << exact_solution(x) << std::endl;
+		std::cout << x << " " << approximate_solution[i] << " " << exact_solution(x) << std::endl;
 	}
 }
 
