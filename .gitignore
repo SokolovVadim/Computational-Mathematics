@@ -1,4 +1,5 @@
 output.txt
 PendulumSolution/output.txt
-*.png
+# *.png
+AudiACW.png
 *.out
