@@ -1,11 +1,12 @@
 #include "tridiagonal_algo.hpp"
 #include <iostream>
 
-Matrix::Matrix(std::size_t dimension):
+Matrix::Matrix(std::size_t dimension, const std::string & filename):
 	dimension_(dimension),
 	up_(dimension),
 	middle_(dimension + 1),
-	down_(dimension)
+	down_(dimension),
+	fout_(filename)
 {
 	double h = 1.0 / (dimension_);
 
@@ -24,6 +25,16 @@ Matrix::Matrix(std::size_t dimension):
 	
 }
 
+
+Matrix::~Matrix()
+{
+	up_.clear();
+	middle_.clear();
+	down_.clear();
+	fout_.close();
+}
+
+
 void Matrix::PrintVector()
 {
 	std::cout << "==============================================\n";
@@ -41,13 +52,6 @@ void Matrix::PrintVector()
 	std::cout << "==============================================\n";
 }
 
-Matrix::~Matrix()
-{
-	up_.clear();
-	middle_.clear();
-	down_.clear();
-}
-
 std::size_t Matrix::GetDim() const
 {
 	return this->dimension_;
@@ -56,6 +60,11 @@ std::size_t Matrix::GetDim() const
 double function(double x)
 {
 	return exp(x);
+}
+
+double exact_solution(double x)
+{
+	return x * exp(x);
 }
 
 std::vector<double> CalculateRightSide(std::size_t dim)
@@ -71,8 +80,21 @@ std::vector<double> CalculateRightSide(std::size_t dim)
 	return right;
 }
 
+double Matrix::CalculateNorm(std::vector<double> & approximate_solution)
+{
+	double norm(0.0);
+	for(std::size_t i(0); i < dimension_ + 1; ++i)
+	{
+		double x(double(i) / dimension_);
+		double delta = fabs(approximate_solution[i] - exact_solution(x));
+		if(delta > norm)
+			norm = delta;
+	}
+	return norm;
+}
 
-bool Matrix::TridiagonalAlgo()
+
+std::vector<double> Matrix::TridiagonalAlgo()
 {
 	std::vector<double> right = CalculateRightSide(dimension_);
     
@@ -90,10 +112,14 @@ bool Matrix::TridiagonalAlgo()
     	right.at(i) -= up_.at(i) * right.at(i + 1);
     }
 
-   /* std::cout << "y\n";
-	for (auto i : right)
-	   std::cout << i << ' ';
-	std::cout << std::endl;*/
-	
-	return true;
+    return right;
+}
+
+void Matrix::SaveResults(std::vector<double> & approximate_solution)
+{
+	for(std::size_t i(0); i < dimension_ + 1; ++i)
+	{
+		double x(double(i) / dimension_);
+		fout_ << x << " " << approximate_solution[i] << " " << exact_solution(x) << std::endl;
+	}
 }

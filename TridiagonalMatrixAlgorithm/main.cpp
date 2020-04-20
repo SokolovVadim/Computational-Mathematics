@@ -16,8 +16,11 @@ int main(int argc, char** argv)
 		exit(EXIT_FAILURE);
 	}
 	
-	Matrix matrix(n);
-	matrix.TridiagonalAlgo();
+	Matrix matrix(n, "output.txt");
+	std::vector<double> approximate_solution = matrix.TridiagonalAlgo();
+	matrix.SaveResults(approximate_solution);
+	double norm = matrix.CalculateNorm(approximate_solution);
+	std::cout << "Norm = " << norm << std::endl;
 
 	return 0;
 }
